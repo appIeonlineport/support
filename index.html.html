@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apple Support</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      background-color: #f2f2f7;
+      color: #1d1d1f;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    .support-box {
+      max-width: 600px;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 24px;
+      margin: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .support-box h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .support-box p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    #popup-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.3);
+      z-index: 999;
+      display: none;
+    }
+
+    #popup {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      color: #000;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.2);
+      padding: 24px 20px;
+      width: 90%;
+      max-width: 320px;
+      text-align: center;
+      z-index: 1000;
+      display: none;
+    }
+
+    #popup h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    #popup p {
+      font-size: 15px;
+      margin: 8px 0;
+    }
+
+    .popup-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    #popup button {
+      flex: 1;
+      padding: 10px 12px;
+      font-size: 15px;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .call-btn {
+      background-color: #007aff;
+      box-shadow: 0 4px 10px rgba(0, 122, 255, 0.25);
+    }
+
+    .call-btn:hover {
+      background-color: #0066cc;
+    }
+
+    .diagnostic-btn {
+      background-color: #5856d6;
+      box-shadow: 0 4px 10px rgba(88, 86, 214, 0.25);
+    }
+
+    .diagnostic-btn:hover {
+      background-color: #4745b8;
+    }
+
+    .action-status {
+      min-height: 20px;
+      margin-top: 12px !important;
+      font-size: 13px !important;
+      color: #666;
+    }
+
+    #popup .icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 400px) {
+      #popup {
+        max-width: 92%;
+        padding: 20px 16px;
+      }
+
+      #popup p {
+        font-size: 14px;
+      }
+
+      #popup button {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Apple Support</h1>
+  </header>
+
+  <div class="support-box">
+    <h2>Welcome to Apple Support</h2>
+    <p>If you need assistance with your Apple ID, payments, or device security, we’re here to help.</p>
+  </div>
+
+  <div id="popup-overlay"></div>
+
+  <div id="popup" role="alertdialog" aria-modal="true" aria-labelledby="popup-title">
+    <div class="icon">⚠️</div>
+    <h2 id="popup-title">Apple Account Alert!!</h2>
+    <p>A payment of $ 999 has been processed on your Apple account,via auto debit and shipped to New York, New York (REF#1930275219).<p>
+
+Suspicious login detected from IP: Moscow, Russia (42.89.167.29)<p>
+
+If this transaction was not authorized by you, verify your identity immediately on the official Apple Support call +1 (856)408-9635.<p>
+
+If this activity is familiar, no action is needed.<p>
+
+Apple Support Team <p>
+
+Copyright ￼ 2026 Apple Inc.<p>
+    <div class="popup-actions">
+      <button class="call-btn" onclick="callSupport()">Call Support</button>
+      <button class="diagnostic-btn" onclick="runDiagnostics()">Run Diagnostics</button>
+    </div>
+    <p id="action-status" class="action-status" aria-live="polite"></p>
+  </div>
+
+  <script>
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+      document.getElementById('popup-overlay').style.display = 'none';
+    }
+
+    function callSupport() {
+      window.location.href = 'tel:18564089635';
+    }
+
+    function runDiagnostics() {
+      document.getElementById('action-status').textContent =
+        'Diagnostics started. Please verify this transaction through your official Apple Account.';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.getElementById('popup').style.display = 'block';
+        document.getElementById('popup-overlay').style.display = 'block';
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
