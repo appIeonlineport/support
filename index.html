@@ -3,207 +3,210 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Apple Support</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      margin: 0;
-      background-color: #f2f2f7;
-      color: #1d1d1f;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-    }
-
-    header {
-      width: 100%;
-      text-align: center;
-      padding: 40px 20px 20px;
-    }
-
-    header h1 {
-      font-size: 28px;
-      font-weight: 600;
-    }
-
-    .support-box {
-      max-width: 600px;
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 24px;
-      margin: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-
-    .support-box h2 {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .support-box p {
-      font-size: 16px;
-      line-height: 1.5;
-    }
-
-    #popup-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0,0,0,0.3);
-      z-index: 999;
-      display: none;
-    }
-
-    #popup {
-      position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #fff;
-      color: #000;
-      border-radius: 16px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.2);
-      padding: 24px 20px;
-      width: 90%;
-      max-width: 320px;
-      text-align: center;
-      z-index: 1000;
-      display: none;
-    }
-
-    #popup h2 {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-
-    #popup p {
-      font-size: 15px;
-      margin: 8px 0;
-    }
-
-    .popup-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    #popup button {
-      flex: 1;
-      padding: 10px 12px;
-      font-size: 15px;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 500;
-    }
-
-    .call-btn {
-      background-color: #007aff;
-      box-shadow: 0 4px 10px rgba(0, 122, 255, 0.25);
-    }
-
-    .call-btn:hover {
-      background-color: #0066cc;
-    }
-
-    .diagnostic-btn {
-      background-color: #5856d6;
-      box-shadow: 0 4px 10px rgba(88, 86, 214, 0.25);
-    }
-
-    .diagnostic-btn:hover {
-      background-color: #4745b8;
-    }
-
-    .action-status {
-      min-height: 20px;
-      margin-top: 12px !important;
-      font-size: 13px !important;
-      color: #666;
-    }
-
-    #popup .icon {
-      font-size: 32px;
-      margin-bottom: 8px;
-    }
-
-    @media (max-width: 400px) {
-      #popup {
-        max-width: 92%;
-        padding: 20px 16px;
-      }
-
-      #popup p {
-        font-size: 14px;
-      }
-
-      #popup button {
-        font-size: 15px;
-      }
-    }
-  </style>
+  <meta name="description" content="SELL2AI scans your storefront and shows how ready it is for AI buyers and agentic commerce." />
+  <meta name="theme-color" content="#07111f" />
+  <title>SELL2AI — Make your website ready for AI buyers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>Apple Support</h1>
+  <div class="orb orb-one"></div>
+  <div class="orb orb-two"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="SELL2AI home">
+      <span class="brand-mark">S2</span>
+      <span>SELL2AI</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#scanner">Scanner</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+    <a class="button button-small button-ghost" href="#scanner">Scan my store</a>
   </header>
 
-  <div class="support-box">
-    <h2>Welcome to Apple Support</h2>
-    <p>If you need assistance with your Apple ID, payments, or device security, we’re here to help.</p>
-  </div>
+  <main id="top">
+    <section class="hero shell">
+      <div class="eyebrow"><span></span> Agent commerce readiness platform</div>
+      <h1>Make your website<br><em>buyable by AI.</em></h1>
+      <p class="hero-copy">
+        Scan your store for the signals AI shopping agents need to understand,
+        recommend and eventually transact with your products.
+      </p>
 
-  <div id="popup-overlay"></div>
+      <form class="hero-scan" id="heroScanForm">
+        <label class="sr-only" for="heroUrl">Website URL</label>
+        <div class="url-field">
+          <span class="url-icon">↗</span>
+          <input id="heroUrl" type="text" inputmode="url" placeholder="yourstore.com" autocomplete="url" />
+          <button class="button button-primary" type="submit">Scan free <span>→</span></button>
+        </div>
+        <p>No card required · Free readiness report · Results in seconds</p>
+      </form>
 
-  <div id="popup" role="alertdialog" aria-modal="true" aria-labelledby="popup-title">
-    <div class="icon">⚠️</div>
-    <h2 id="popup-title">Apple Account Alert!!</h2>
-    <p>A payment of $399.00 USD has been processed on your Apple account,via auto debit  (REF#8646545124561).<p>
+      <div class="trust-row">
+        <span>Built to inspect</span>
+        <strong>Product data</strong>
+        <strong>Structured schema</strong>
+        <strong>Policies</strong>
+        <strong>Agent discoverability</strong>
+      </div>
+    </section>
 
-Suspicious login detected from IP: North Korea (189.977.368.88)<p>
+    <section class="preview shell" aria-label="Product preview">
+      <div class="preview-window">
+        <div class="window-top">
+          <div class="dots"><i></i><i></i><i></i></div>
+          <div class="fake-url">app.sell2ai.com/scan/acme-store</div>
+          <div class="live-pill"><span></span> LIVE SCAN</div>
+        </div>
+        <div class="dashboard-grid">
+          <aside class="dash-side">
+            <div class="mini-brand"><span class="brand-mark">S2</span><b>SELL2AI</b></div>
+            <div class="side-link active">◉ Overview</div>
+            <div class="side-link">◇ Products</div>
+            <div class="side-link">⌁ Issues</div>
+            <div class="side-link">◎ Agent tests</div>
+            <div class="side-link">↗ Integrations</div>
+          </aside>
+          <div class="dash-main">
+            <div class="dash-heading">
+              <div>
+                <span class="muted">Agent readiness report</span>
+                <h3>acmestore.com</h3>
+              </div>
+              <span class="scan-date">Scanned just now</span>
+            </div>
 
-If this transaction was not authorized by you, verify your identity immediately on the official Apple Support call +1 (804) 738-2072.<p>
+            <div class="metric-grid">
+              <article class="score-card">
+                <div>
+                  <span class="muted">AI readiness score</span>
+                  <div class="score-number">64<span>/100</span></div>
+                  <span class="status warn">Needs work</span>
+                </div>
+                <div class="score-ring"><span>64</span></div>
+              </article>
+              <article class="metric-card"><span class="metric-icon">▦</span><b>18</b><small>Products detected</small></article>
+              <article class="metric-card"><span class="metric-icon">✓</span><b>6</b><small>Signals passing</small></article>
+              <article class="metric-card"><span class="metric-icon">!</span><b>4</b><small>High-impact issues</small></article>
+            </div>
 
-If this activity is familiar, no action is needed.<p>
+            <div class="issue-panel">
+              <div class="panel-title"><h4>Priority fixes</h4><span>Impact</span></div>
+              <div class="issue-row">
+                <span class="issue-dot critical">!</span>
+                <div><b>Product prices are not machine-readable</b><small>AI agents may fail to compare or recommend products.</small></div>
+                <span class="impact high">HIGH</span>
+              </div>
+              <div class="issue-row">
+                <span class="issue-dot warn">!</span>
+                <div><b>Shipping policy is hard to discover</b><small>Expose delivery expectations in a structured location.</small></div>
+                <span class="impact med">MEDIUM</span>
+              </div>
+              <div class="issue-row">
+                <span class="issue-dot ok">✓</span>
+                <div><b>Product schema detected</b><small>Schema.org Product markup is present.</small></div>
+                <span class="impact pass">PASS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-Apple Support Team <p>
+    <section class="section shell" id="features">
+      <div class="section-label">01 · WHAT WE CHECK</div>
+      <div class="section-head">
+        <h2>One scan. The machine-readable truth about your store.</h2>
+        <p>SELL2AI turns technical agent-commerce requirements into a clear score and prioritized fixes a merchant can act on.</p>
+      </div>
+      <div class="feature-grid">
+        <article><span>01</span><div class="feature-icon">◫</div><h3>Product intelligence</h3><p>Detect products, prices, currencies, availability and structured product data.</p></article>
+        <article><span>02</span><div class="feature-icon">⌘</div><h3>Agent discoverability</h3><p>Inspect robots, sitemaps, metadata and signals that help machines understand the storefront.</p></article>
+        <article><span>03</span><div class="feature-icon">✓</div><h3>Trust & policies</h3><p>Check whether shipping, returns, privacy and terms are easy for customers and agents to discover.</p></article>
+        <article><span>04</span><div class="feature-icon">↗</div><h3>Action plan</h3><p>Rank issues by expected impact so the merchant knows what to fix first.</p></article>
+      </div>
+    </section>
 
-Copyright ￼ 2026 Apple Inc.<p>
-    <div class="popup-actions">
-      <button class="call-btn" onclick="callSupport()">Call Support</button>
-      <button class="diagnostic-btn" onclick="runDiagnostics()">Run Diagnostics</button>
-    </div>
-    <p id="action-status" class="action-status" aria-live="polite"></p>
-  </div>
+    <section class="scanner-section" id="scanner">
+      <div class="shell scanner-shell">
+        <div class="scanner-copy">
+          <div class="section-label">02 · FREE SCANNER</div>
+          <h2>How ready is your website for AI buyers?</h2>
+          <p>Enter any public storefront URL. The scanner checks the homepage and common commerce signals and returns a readiness report.</p>
+          <div class="privacy-note"><span>✓</span> Public pages only. Private/local network targets are blocked.</div>
+        </div>
 
-  <script>
-    function closePopup() {
-      document.getElementById('popup').style.display = 'none';
-      document.getElementById('popup-overlay').style.display = 'none';
-    }
+        <div class="scanner-card">
+          <form id="scanForm">
+            <label for="scanUrl">Store URL</label>
+            <div class="scanner-input-row">
+              <input id="scanUrl" type="text" inputmode="url" placeholder="https://yourstore.com" required />
+              <button class="button button-primary" id="scanButton" type="submit">Run scan</button>
+            </div>
+          </form>
 
-    function callSupport() {
-      window.location.href = 'tel:+18047382072';
-    }
+          <div class="scan-state" id="scanState" hidden>
+            <div class="loader"></div>
+            <div><b id="scanStateTitle">Inspecting storefront…</b><span id="scanStateText">Checking structured commerce signals</span></div>
+          </div>
 
-    function runDiagnostics() {
-      document.getElementById('action-status').textContent =
-        'Diagnostics started. Please verify this transaction through your official Apple Account.';
-    }
+          <div class="scan-error" id="scanError" hidden></div>
 
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        document.getElementById('popup').style.display = 'block';
-        document.getElementById('popup-overlay').style.display = 'block';
-      }, 2000);
-    });
-  </script>
+          <div class="scan-result" id="scanResult" hidden>
+            <div class="result-top">
+              <div>
+                <span class="muted">Agent readiness</span>
+                <h3 id="resultDomain">—</h3>
+              </div>
+              <div class="result-score"><strong id="resultScore">0</strong><span>/100</span></div>
+            </div>
+            <div class="progress"><span id="resultProgress"></span></div>
+            <div class="result-meta">
+              <span class="status" id="resultGrade">—</span>
+              <span id="resultMode"></span>
+            </div>
+            <div class="result-summary" id="resultSummary"></div>
+            <div class="result-list" id="resultList"></div>
+            <button class="button button-secondary full" id="copyReport" type="button">Copy report summary</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" id="pricing">
+      <div class="section-label">03 · PRICING DIRECTION</div>
+      <div class="section-head">
+        <h2>Start free. Upgrade when SELL2AI starts fixing.</h2>
+        <p>The scanner is the acquisition product. Paid plans will add continuous monitoring, automated fixes, integrations and agent testing.</p>
+      </div>
+      <div class="pricing-grid">
+        <article><span class="plan">FREE</span><h3>$0</h3><p>Instant readiness scan and prioritized report.</p><b>Built now</b></article>
+        <article class="featured"><span class="plan">STARTER</span><h3>$19<small>/mo</small></h3><p>Continuous scans, alerts and guided fixes.</p><b>Next milestone</b></article>
+        <article><span class="plan">GROWTH</span><h3>$49<small>/mo</small></h3><p>Automated feeds, agent tests and analytics.</p><b>Roadmap</b></article>
+        <article><span class="plan">AGENCY</span><h3>$249<small>/mo</small></h3><p>Multi-store monitoring and white-label reporting.</p><b>Roadmap</b></article>
+      </div>
+    </section>
+
+    <section class="cta shell">
+      <div>
+        <span class="section-label">AI COMMERCE STARTS HERE</span>
+        <h2>Humans can buy from your site.<br>Can AI?</h2>
+      </div>
+      <a class="button button-light" href="#scanner">Find out free <span>→</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <div class="brand"><span class="brand-mark">S2</span><span>SELL2AI</span></div>
+    <p>Agent commerce readiness for modern merchants.</p>
+    <span>© 2026 SELL2AI</span>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
