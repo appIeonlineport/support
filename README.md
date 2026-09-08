@@ -112,3 +112,8 @@ The scan API intentionally rejects local/private network targets and validates r
 ## Product principle
 
 The free scanner should be genuinely useful on its own. Paid plans should monetize **continuous monitoring, automated fixes, integrations and measurable commerce outcomes**, not hide the basic diagnostic result behind a paywall.
+
+
+## Deployment
+
+SELL2AI is connected to Vercel Git deployments from the `main` branch.
