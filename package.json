@@ -1,0 +1,14 @@
+{
+  "name": "sell2ai",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "SELL2AI — agent commerce readiness scanner for modern storefronts",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
