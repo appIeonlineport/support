@@ -1,0 +1,52 @@
+name: SELL2AI Production Smoke Test
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Wait for Vercel alias
+        run: sleep 15
+
+      - name: Verify production homepage
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://sell2ai.vercel.app"
+          ok=0
+          for i in {1..12}; do
+            if body="$(curl -fsSL --max-time 20 "$URL" 2>/dev/null)" && grep -Fq "Your store is open to people." <<<"$body"; then
+              echo "SELL2AI homepage is live."
+              ok=1
+              break
+            fi
+            echo "Homepage not ready yet (attempt $i/12)."
+            sleep 5
+          done
+          test "$ok" -eq 1
+
+      - name: Verify live scanner API
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://sell2ai.vercel.app/api/scan?url=https%3A%2F%2Fexample.com"
+          ok=0
+          for i in {1..10}; do
+            if body="$(curl -fsSL --max-time 25 "$URL" 2>/dev/null)" && grep -Fq '"mode":"live"' <<<"$body" && grep -Fq '"domain":"example.com"' <<<"$body"; then
+              echo "SELL2AI scanner returned a real live scan."
+              echo "$body"
+              ok=1
+              break
+            fi
+            echo "Scanner not ready yet (attempt $i/10)."
+            sleep 5
+          done
+          test "$ok" -eq 1
