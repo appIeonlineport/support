@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7f6f2" />
+  <title>SELL2AI — Merchant Console</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <header class="dash-top">
+    <a class="brand" href="/">
+      <img src="/favicon.svg" alt="" />
+      <strong>SELL2AI</strong>
+      <span>Merchant Console</span>
+    </a>
+    <div class="account-area">
+      <span id="accountState">Loading workspace…</span>
+      <button id="signOutBtn" class="ghost-btn" type="button" hidden>Sign out</button>
+      <a class="ghost-btn" href="/">View site ↗</a>
+    </div>
+  </header>
+
+  <main class="dash-shell">
+    <section class="auth-gate" id="authGate" hidden>
+      <div class="auth-card">
+        <span class="label">SELL2AI ACCOUNT</span>
+        <h1>Keep every scan.<br><em>Watch the score move.</em></h1>
+        <p>Enter your email and we’ll send a secure magic sign-in link.</p>
+        <form id="authForm">
+          <input id="authEmail" type="email" placeholder="you@company.com" required />
+          <button type="submit">Send sign-in link →</button>
+        </form>
+        <div class="auth-message" id="authMessage"></div>
+        <button class="text-btn" id="guestBtn" type="button">Continue in local beta workspace</button>
+      </div>
+    </section>
+
+    <div id="workspace" hidden>
+      <section class="workspace-head">
+        <div>
+          <span class="label">MERCHANT WORKSPACE</span>
+          <h1>Make machine-readability<br><em>measurable.</em></h1>
+        </div>
+        <form class="quick-add" id="addStoreForm">
+          <label for="storeUrl">Add or re-scan a store</label>
+          <div>
+            <input id="storeUrl" type="text" inputmode="url" placeholder="yourstore.com" required />
+            <button id="addStoreBtn" type="submit">Scan store ↗</button>
+          </div>
+          <span id="scanNotice"></span>
+        </form>
+      </section>
+
+      <section class="metric-row">
+        <article><span>STORES</span><strong id="metricStores">0</strong><small>in workspace</small></article>
+        <article><span>LATEST SCORE</span><strong id="metricScore">—</strong><small id="metricScoreDomain">no scan yet</small></article>
+        <article><span>PRODUCTS</span><strong id="metricProducts">—</strong><small>detected in latest scan</small></article>
+        <article><span>PLATFORM</span><strong class="metric-word" id="metricPlatform">—</strong><small>latest fingerprint</small></article>
+      </section>
+
+      <section class="workspace-grid">
+        <aside class="stores-panel">
+          <div class="panel-head"><span>YOUR STORES</span><button id="refreshBtn" type="button">Refresh</button></div>
+          <div id="storeList" class="store-list"></div>
+        </aside>
+
+        <section class="main-panel">
+          <nav class="tabs" id="tabs">
+            <button class="active" data-tab="overview">Overview</button>
+            <button data-tab="buyer">AI Buyer Test</button>
+            <button data-tab="fixes">Fix Pack</button>
+            <button data-tab="billing">Billing</button>
+            <button data-tab="feedback">Beta Feedback</button>
+          </nav>
+
+          <div class="tab-panel active" id="tab-overview">
+            <div class="empty-state" id="overviewEmpty">
+              <div class="empty-orbit"><img src="/favicon.svg" alt="" /></div>
+              <h2>Add your first store.</h2>
+              <p>SELL2AI will deep-scan the homepage, robots.txt, sitemap and a safe sample of product/catalog pages.</p>
+            </div>
+            <div id="overviewContent" hidden>
+              <div class="report-title">
+                <div><span class="label">LATEST READINESS REPORT</span><h2 id="reportDomain">—</h2></div>
+                <div class="big-score"><strong id="reportScore">0</strong><span>/100</span></div>
+              </div>
+              <div class="score-bar"><span id="reportBar"></span></div>
+              <div class="report-facts" id="reportFacts"></div>
+              <div class="issue-list" id="issueList"></div>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="tab-buyer">
+            <div class="tool-intro">
+              <span class="label">AI BUYER TEST</span>
+              <h2>Test a real shopping request.</h2>
+              <p>This deterministic simulation scores products using the public commerce information your store exposes. It does not claim to reproduce ChatGPT, Gemini, Claude or any third-party ranking.</p>
+            </div>
+            <form id="buyerForm" class="tool-form">
+              <textarea id="buyerQuery" rows="3" placeholder="Find me a fragrance-free serum under $35 for oily skin." required></textarea>
+              <button id="buyerBtn" type="submit">Run buyer test →</button>
+            </form>
+            <div id="buyerResult"></div>
+          </div>
+
+          <div class="tab-panel" id="tab-fixes">
+            <div class="tool-intro">
+              <span class="label">AUTOMATED FIX PACK</span>
+              <h2>Turn failed checks into deployable files.</h2>
+              <p>Generate Product JSON-LD, a merchant feed example and a prioritized implementation checklist based on the selected store.</p>
+            </div>
+            <button id="fixBtn" class="primary-wide" type="button">Generate fix pack ↗</button>
+            <div id="fixResult"></div>
+          </div>
+
+          <div class="tab-panel" id="tab-billing">
+            <div class="tool-intro">
+              <span class="label">SUBSCRIPTIONS</span>
+              <h2>Free diagnostics.<br>Paid automation.</h2>
+              <p>Checkout activates automatically once Stripe keys and price IDs are configured on the Vercel project.</p>
+            </div>
+            <div class="billing-grid">
+              <article><span>STARTER</span><strong>$19<small>/mo</small></strong><p>Scheduled rescans, alerts, history, guided fixes.</p><button data-plan="starter">Choose Starter</button></article>
+              <article class="featured"><span>GROWTH</span><strong>$49<small>/mo</small></strong><p>Buyer tests, feeds, automated fixes and analytics.</p><button data-plan="growth">Choose Growth</button></article>
+              <article><span>AGENCY</span><strong>$249<small>/mo</small></strong><p>Multi-store workspace and white-label reporting.</p><button data-plan="agency">Choose Agency</button></article>
+            </div>
+            <div class="billing-note" id="billingNote"></div>
+          </div>
+
+          <div class="tab-panel" id="tab-feedback">
+            <div class="tool-intro">
+              <span class="label">BETA LOOP</span>
+              <h2>Tell us what was wrong,<br>missing or valuable.</h2>
+              <p>Feedback is tied to the selected store when account sync is active. Guest-beta feedback stays in this browser until the backend is connected.</p>
+            </div>
+            <form id="feedbackForm" class="feedback-form">
+              <select id="feedbackType">
+                <option value="scanner_accuracy">Scanner accuracy</option>
+                <option value="missing_feature">Missing feature</option>
+                <option value="buyer_test">AI Buyer Test</option>
+                <option value="fix_pack">Fix Pack</option>
+                <option value="pricing">Pricing</option>
+                <option value="general">General</option>
+              </select>
+              <select id="feedbackRating">
+                <option value="5">5 — Very useful</option>
+                <option value="4">4 — Useful</option>
+                <option value="3">3 — Okay</option>
+                <option value="2">2 — Weak</option>
+                <option value="1">1 — Not useful</option>
+              </select>
+              <textarea id="feedbackMessage" rows="5" placeholder="What should SELL2AI improve?" required></textarea>
+              <button type="submit">Send feedback →</button>
+            </form>
+            <div class="billing-note" id="feedbackNote"></div>
+          </div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
