@@ -3,208 +3,509 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SELL2AI scans your storefront and shows how ready it is for AI buyers and agentic commerce." />
-  <meta name="theme-color" content="#07111f" />
-  <title>SELL2AI — Make your website ready for AI buyers</title>
+  <meta name="description" content="SELL2AI shows how ready your storefront is for AI buyers, then turns machine-readability gaps into a practical action plan." />
+  <meta name="theme-color" content="#f8f7f3" />
+  <meta property="og:title" content="SELL2AI — Make your store legible to AI buyers" />
+  <meta property="og:description" content="Scan product data, pricing, policies and discoverability. Get an AI commerce readiness score in seconds." />
+  <title>SELL2AI — AI commerce readiness for modern stores</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="orb orb-one"></div>
-  <div class="orb orb-two"></div>
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
 
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="SELL2AI home">
-      <span class="brand-mark">S2</span>
-      <span>SELL2AI</span>
-    </a>
-    <nav class="nav-links" aria-label="Primary navigation">
-      <a href="#scanner">Scanner</a>
-      <a href="#features">Features</a>
-      <a href="#pricing">Pricing</a>
-    </nav>
-    <a class="button button-small button-ghost" href="#scanner">Scan my store</a>
+  <header class="topbar" id="top">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="SELL2AI home">
+        <svg class="brand-symbol" viewBox="0 0 42 42" role="img" aria-label="SELL2AI logo">
+          <defs>
+            <linearGradient id="sell2aiMark" x1="5" y1="4" x2="37" y2="38" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#11120F"/>
+              <stop offset=".56" stop-color="#245B4A"/>
+              <stop offset="1" stop-color="#5A806D"/>
+            </linearGradient>
+          </defs>
+          <path d="M29.7 7.7c-3.4-2.8-9.6-2.9-13.2-.6-4.1 2.6-4.5 7.9-.2 10.2 2.5 1.3 6.1 1.4 8.8 2 4.3 1 6.7 3 6.3 6.8-.4 4.1-4.1 7.3-9.2 7.6-4.8.3-8.9-1.4-11.2-4.8" fill="none" stroke="url(#sell2aiMark)" stroke-width="3.6" stroke-linecap="round"/>
+          <path d="M28.4 8.8c3.1 1.7 5.1 4.4 5.7 7.8M13.1 25.7c.7 3.7 3.6 6.5 7.5 7.2" fill="none" stroke="#9CB7AA" stroke-width="1.7" stroke-linecap="round"/>
+          <circle cx="32.8" cy="8.3" r="2.35" fill="#2E6B56"/>
+        </svg>
+        <span class="brand-word">SELL2AI</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#product">Product</a>
+        <a href="#buyer-test">AI Buyer Test</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="nav-link-muted" href="#scanner">Free scan</a>
+        <a class="button button-dark button-small" href="#scanner">Scan my store <span>↗</span></a>
+      </div>
+    </div>
   </header>
 
-  <main id="top">
-    <section class="hero shell">
-      <div class="eyebrow"><span></span> Agent commerce readiness platform</div>
-      <h1>Make your website<br><em>buyable by AI.</em></h1>
-      <p class="hero-copy">
-        Scan your store for the signals AI shopping agents need to understand,
-        recommend and eventually transact with your products.
-      </p>
-
-      <form class="hero-scan" id="heroScanForm">
-        <label class="sr-only" for="heroUrl">Website URL</label>
-        <div class="url-field">
-          <span class="url-icon">↗</span>
-          <input id="heroUrl" type="text" inputmode="url" placeholder="yourstore.com" autocomplete="url" />
-          <button class="button button-primary" type="submit">Scan free <span>→</span></button>
-        </div>
-        <p>No card required · Free readiness report · Results in seconds</p>
-      </form>
-
-      <div class="trust-row">
-        <span>Built to inspect</span>
-        <strong>Product data</strong>
-        <strong>Structured schema</strong>
-        <strong>Policies</strong>
-        <strong>Agent discoverability</strong>
-      </div>
-    </section>
-
-    <section class="preview shell" aria-label="Product preview">
-      <div class="preview-window">
-        <div class="window-top">
-          <div class="dots"><i></i><i></i><i></i></div>
-          <div class="fake-url">app.sell2ai.com/scan/acme-store</div>
-          <div class="live-pill"><span></span> LIVE SCAN</div>
-        </div>
-        <div class="dashboard-grid">
-          <aside class="dash-side">
-            <div class="mini-brand"><span class="brand-mark">S2</span><b>SELL2AI</b></div>
-            <div class="side-link active">◉ Overview</div>
-            <div class="side-link">◇ Products</div>
-            <div class="side-link">⌁ Issues</div>
-            <div class="side-link">◎ Agent tests</div>
-            <div class="side-link">↗ Integrations</div>
-          </aside>
-          <div class="dash-main">
-            <div class="dash-heading">
-              <div>
-                <span class="muted">Agent readiness report</span>
-                <h3>acmestore.com</h3>
-              </div>
-              <span class="scan-date">Scanned just now</span>
-            </div>
-
-            <div class="metric-grid">
-              <article class="score-card">
-                <div>
-                  <span class="muted">AI readiness score</span>
-                  <div class="score-number">64<span>/100</span></div>
-                  <span class="status warn">Needs work</span>
-                </div>
-                <div class="score-ring"><span>64</span></div>
-              </article>
-              <article class="metric-card"><span class="metric-icon">▦</span><b>18</b><small>Products detected</small></article>
-              <article class="metric-card"><span class="metric-icon">✓</span><b>6</b><small>Signals passing</small></article>
-              <article class="metric-card"><span class="metric-icon">!</span><b>4</b><small>High-impact issues</small></article>
-            </div>
-
-            <div class="issue-panel">
-              <div class="panel-title"><h4>Priority fixes</h4><span>Impact</span></div>
-              <div class="issue-row">
-                <span class="issue-dot critical">!</span>
-                <div><b>Product prices are not machine-readable</b><small>AI agents may fail to compare or recommend products.</small></div>
-                <span class="impact high">HIGH</span>
-              </div>
-              <div class="issue-row">
-                <span class="issue-dot warn">!</span>
-                <div><b>Shipping policy is hard to discover</b><small>Expose delivery expectations in a structured location.</small></div>
-                <span class="impact med">MEDIUM</span>
-              </div>
-              <div class="issue-row">
-                <span class="issue-dot ok">✓</span>
-                <div><b>Product schema detected</b><small>Schema.org Product markup is present.</small></div>
-                <span class="impact pass">PASS</span>
-              </div>
-            </div>
+  <main>
+    <section class="hero section-pad">
+      <div class="hero-grid page-shell">
+        <div class="hero-copy reveal">
+          <div class="micro-label">
+            <span class="micro-dot"></span>
+            Agent commerce readiness
           </div>
-        </div>
-      </div>
-    </section>
+          <h1>Your store is open to people.<br><em>Make it legible to machines.</em></h1>
+          <p class="hero-sub">
+            SELL2AI scans the commerce signals AI buyers need to understand, compare and trust your products—then tells you what to fix first.
+          </p>
 
-    <section class="section shell" id="features">
-      <div class="section-label">01 · WHAT WE CHECK</div>
-      <div class="section-head">
-        <h2>One scan. The machine-readable truth about your store.</h2>
-        <p>SELL2AI turns technical agent-commerce requirements into a clear score and prioritized fixes a merchant can act on.</p>
-      </div>
-      <div class="feature-grid">
-        <article><span>01</span><div class="feature-icon">◫</div><h3>Product intelligence</h3><p>Detect products, prices, currencies, availability and structured product data.</p></article>
-        <article><span>02</span><div class="feature-icon">⌘</div><h3>Agent discoverability</h3><p>Inspect robots, sitemaps, metadata and signals that help machines understand the storefront.</p></article>
-        <article><span>03</span><div class="feature-icon">✓</div><h3>Trust & policies</h3><p>Check whether shipping, returns, privacy and terms are easy for customers and agents to discover.</p></article>
-        <article><span>04</span><div class="feature-icon">↗</div><h3>Action plan</h3><p>Rank issues by expected impact so the merchant knows what to fix first.</p></article>
-      </div>
-    </section>
-
-    <section class="scanner-section" id="scanner">
-      <div class="shell scanner-shell">
-        <div class="scanner-copy">
-          <div class="section-label">02 · FREE SCANNER</div>
-          <h2>How ready is your website for AI buyers?</h2>
-          <p>Enter any public storefront URL. The scanner checks the homepage and common commerce signals and returns a readiness report.</p>
-          <div class="privacy-note"><span>✓</span> Public pages only. Private/local network targets are blocked.</div>
-        </div>
-
-        <div class="scanner-card">
-          <form id="scanForm">
-            <label for="scanUrl">Store URL</label>
-            <div class="scanner-input-row">
-              <input id="scanUrl" type="text" inputmode="url" placeholder="https://yourstore.com" required />
-              <button class="button button-primary" id="scanButton" type="submit">Run scan</button>
+          <form class="hero-scan" id="heroScanForm">
+            <label class="sr-only" for="heroUrl">Store website URL</label>
+            <div class="hero-input-shell">
+              <div class="input-prefix">https://</div>
+              <input id="heroUrl" type="text" inputmode="url" autocomplete="url" placeholder="yourstore.com" />
+              <button class="button button-dark" type="submit">Run free scan <span>→</span></button>
+            </div>
+            <div class="hero-meta">
+              <span>Public pages only</span>
+              <span>•</span>
+              <span>No card</span>
+              <span>•</span>
+              <span>~20 sec</span>
             </div>
           </form>
 
-          <div class="scan-state" id="scanState" hidden>
-            <div class="loader"></div>
-            <div><b id="scanStateTitle">Inspecting storefront…</b><span id="scanStateText">Checking structured commerce signals</span></div>
+          <div class="trust-strip">
+            <span>Checks</span>
+            <strong>Product data</strong>
+            <strong>Pricing</strong>
+            <strong>Policies</strong>
+            <strong>Discovery</strong>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal reveal-delay" aria-label="Interactive SELL2AI report preview">
+          <div class="orbital-stage" id="orbitalStage">
+            <div class="orbital-ring ring-one"></div>
+            <div class="orbital-ring ring-two"></div>
+            <div class="orbital-ring ring-three"></div>
+            <div class="ambient-disc"></div>
+
+            <div class="report-stack" id="reportStack">
+              <article class="floating-card card-back card-back-one">
+                <span class="card-kicker">Offer data</span>
+                <strong>priceCurrency</strong>
+                <span class="tiny-pass">PASS</span>
+              </article>
+
+              <article class="floating-card card-back card-back-two">
+                <span class="card-kicker">Agent access</span>
+                <strong>robots.txt</strong>
+                <span class="tiny-warn">REVIEW</span>
+              </article>
+
+              <article class="main-report-card">
+                <div class="report-card-head">
+                  <div>
+                    <span class="eyeline">Agent readiness</span>
+                    <strong>atelier.example</strong>
+                  </div>
+                  <span class="live-badge"><i></i> Live scan</span>
+                </div>
+
+                <div class="score-row">
+                  <div>
+                    <div class="score-big">82<span>/100</span></div>
+                    <span class="grade-pill">Strong foundation</span>
+                  </div>
+                  <div class="score-orbit">
+                    <span>82</span>
+                  </div>
+                </div>
+
+                <div class="report-divider"></div>
+
+                <div class="mini-check">
+                  <span class="mini-icon pass">✓</span>
+                  <div><strong>Product schema</strong><small>18 products detected</small></div>
+                  <span class="mini-status">PASS</span>
+                </div>
+                <div class="mini-check">
+                  <span class="mini-icon pass">✓</span>
+                  <div><strong>Machine-readable pricing</strong><small>Offer + currency present</small></div>
+                  <span class="mini-status">PASS</span>
+                </div>
+                <div class="mini-check">
+                  <span class="mini-icon warn">!</span>
+                  <div><strong>Return policy</strong><small>Hard for agents to discover</small></div>
+                  <span class="mini-status warn">FIX</span>
+                </div>
+              </article>
+
+              <div class="signal-chip chip-one"><i></i> Product</div>
+              <div class="signal-chip chip-two"><i></i> Offer</div>
+              <div class="signal-chip chip-three"><i></i> Trust</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-foot page-shell reveal">
+        <div class="hero-foot-stat"><strong>10+</strong><span>commerce signals scored</span></div>
+        <div class="hero-foot-stat"><strong>0</strong><span>private pages accessed</span></div>
+        <div class="hero-foot-stat"><strong>1</strong><span>clear action plan</span></div>
+        <div class="hero-foot-note">Built for independent merchants, agencies and custom storefronts.</div>
+      </div>
+    </section>
+
+    <section class="statement-section section-pad" id="product">
+      <div class="page-shell statement-grid">
+        <div class="section-index reveal">01 / THE SHIFT</div>
+        <div class="statement-copy reveal">
+          <p class="serif-kicker">Search was built for humans.</p>
+          <h2>Commerce is becoming <em>machine-readable.</em></h2>
+          <p>
+            AI buyers do not browse a storefront the way people do. They look for structured product entities, explicit pricing, availability, policies and trustworthy transaction signals.
+          </p>
+        </div>
+      </div>
+
+      <div class="signal-marquee reveal" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Product</span><i></i><span>Offer</span><i></i><span>priceCurrency</span><i></i><span>Availability</span><i></i><span>Shipping</span><i></i><span>Returns</span><i></i><span>JSON-LD</span><i></i><span>Checkout</span><i></i>
+          <span>Product</span><i></i><span>Offer</span><i></i><span>priceCurrency</span><i></i><span>Availability</span><i></i><span>Shipping</span><i></i><span>Returns</span><i></i><span>JSON-LD</span><i></i><span>Checkout</span><i></i>
+        </div>
+      </div>
+    </section>
+
+    <section class="scanner-section section-pad" id="scanner">
+      <div class="page-shell">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-index">02 / FREE SCANNER</div>
+            <h2>See what an AI buyer<br>can actually understand.</h2>
+          </div>
+          <p>Enter a public storefront. SELL2AI inspects the page server-side, scores the signals it can detect and returns prioritized fixes.</p>
+        </div>
+
+        <div class="scanner-workspace reveal">
+          <div class="scanner-toolbar">
+            <div class="toolbar-brand">
+              <svg class="mini-symbol" viewBox="0 0 42 42" aria-hidden="true">
+                <path d="M29.7 7.7c-3.4-2.8-9.6-2.9-13.2-.6-4.1 2.6-4.5 7.9-.2 10.2 2.5 1.3 6.1 1.4 8.8 2 4.3 1 6.7 3 6.3 6.8-.4 4.1-4.1 7.3-9.2 7.6-4.8.3-8.9-1.4-11.2-4.8" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
+                <circle cx="32.8" cy="8.3" r="2.35" fill="currentColor"/>
+              </svg>
+              <span>Readiness console</span>
+            </div>
+            <span class="workspace-badge">PUBLIC BETA</span>
           </div>
 
-          <div class="scan-error" id="scanError" hidden></div>
-
-          <div class="scan-result" id="scanResult" hidden>
-            <div class="result-top">
-              <div>
-                <span class="muted">Agent readiness</span>
-                <h3 id="resultDomain">—</h3>
+          <div class="scanner-grid">
+            <div class="scanner-entry">
+              <div class="entry-copy">
+                <span class="eyeline">Storefront URL</span>
+                <h3>Run a live scan</h3>
+                <p>We only request the public page you provide. Local/private network targets are blocked.</p>
               </div>
-              <div class="result-score"><strong id="resultScore">0</strong><span>/100</span></div>
+
+              <form id="scanForm" class="scan-form">
+                <label for="scanUrl">Website</label>
+                <div class="scanner-input-row">
+                  <input id="scanUrl" type="text" inputmode="url" autocomplete="url" placeholder="https://yourstore.com" required />
+                  <button class="button button-dark" id="scanButton" type="submit">Run scan <span>↗</span></button>
+                </div>
+              </form>
+
+              <div class="scan-state" id="scanState" hidden>
+                <div class="scan-pulse"><i></i><i></i><i></i></div>
+                <div>
+                  <b id="scanStateTitle">Inspecting storefront…</b>
+                  <span id="scanStateText">Reading product, trust and discovery signals</span>
+                </div>
+              </div>
+
+              <div class="scan-error" id="scanError" hidden></div>
+
+              <div class="entry-security">
+                <div><span>01</span><strong>Public HTTP/S only</strong></div>
+                <div><span>02</span><strong>Private IPs blocked</strong></div>
+                <div><span>03</span><strong>Short timeout</strong></div>
+              </div>
             </div>
-            <div class="progress"><span id="resultProgress"></span></div>
-            <div class="result-meta">
-              <span class="status" id="resultGrade">—</span>
-              <span id="resultMode"></span>
+
+            <div class="scan-output">
+              <div class="output-empty" id="scanEmpty">
+                <div class="empty-glyph">
+                  <span class="glyph-ring"></span>
+                  <svg viewBox="0 0 42 42" aria-hidden="true">
+                    <path d="M29.7 7.7c-3.4-2.8-9.6-2.9-13.2-.6-4.1 2.6-4.5 7.9-.2 10.2 2.5 1.3 6.1 1.4 8.8 2 4.3 1 6.7 3 6.3 6.8-.4 4.1-4.1 7.3-9.2 7.6-4.8.3-8.9-1.4-11.2-4.8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <strong>Your report will appear here</strong>
+                <p>Score, detected signals and the highest-impact fixes—without hiding the basics behind a paywall.</p>
+              </div>
+
+              <div class="scan-result" id="scanResult" hidden>
+                <div class="result-top">
+                  <div>
+                    <span class="eyeline">Agent readiness</span>
+                    <h3 id="resultDomain">—</h3>
+                  </div>
+                  <div class="result-score"><strong id="resultScore">0</strong><span>/100</span></div>
+                </div>
+
+                <div class="progress"><span id="resultProgress"></span></div>
+
+                <div class="result-meta">
+                  <span class="status" id="resultGrade">—</span>
+                  <span id="resultMode"></span>
+                </div>
+
+                <div class="result-summary" id="resultSummary"></div>
+                <div class="result-list" id="resultList"></div>
+                <button class="button button-outline full" id="copyReport" type="button">Copy report summary</button>
+              </div>
             </div>
-            <div class="result-summary" id="resultSummary"></div>
-            <div class="result-list" id="resultList"></div>
-            <button class="button button-secondary full" id="copyReport" type="button">Copy report summary</button>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section shell" id="pricing">
-      <div class="section-label">03 · PRICING DIRECTION</div>
-      <div class="section-head">
-        <h2>Start free. Upgrade when SELL2AI starts fixing.</h2>
-        <p>The scanner is the acquisition product. Paid plans will add continuous monitoring, automated fixes, integrations and agent testing.</p>
-      </div>
-      <div class="pricing-grid">
-        <article><span class="plan">FREE</span><h3>$0</h3><p>Instant readiness scan and prioritized report.</p><b>Built now</b></article>
-        <article class="featured"><span class="plan">STARTER</span><h3>$19<small>/mo</small></h3><p>Continuous scans, alerts and guided fixes.</p><b>Next milestone</b></article>
-        <article><span class="plan">GROWTH</span><h3>$49<small>/mo</small></h3><p>Automated feeds, agent tests and analytics.</p><b>Roadmap</b></article>
-        <article><span class="plan">AGENCY</span><h3>$249<small>/mo</small></h3><p>Multi-store monitoring and white-label reporting.</p><b>Roadmap</b></article>
+    <section class="buyer-section section-pad" id="buyer-test">
+      <div class="page-shell">
+        <div class="section-head buyer-head reveal">
+          <div>
+            <div class="section-index">03 / AI BUYER TEST</div>
+            <h2>Don't just validate markup.<br><em>Test the buying question.</em></h2>
+          </div>
+          <p>Coming next: ask SELL2AI a real shopper request and see whether your catalog exposes enough information for an AI buyer to confidently choose you.</p>
+        </div>
+
+        <div class="buyer-console reveal">
+          <div class="buyer-left">
+            <span class="console-label">Shopping intent</span>
+            <div class="prompt-bubble">“Find me a fragrance-free serum under $35 for oily skin that ships this week.”</div>
+            <div class="console-divider"></div>
+            <div class="candidate-row">
+              <span class="candidate-number">01</span>
+              <div><strong>Hydra Calm Serum</strong><small>Price ✓ · ingredients ✓ · shipping ?</small></div>
+              <span class="candidate-score">78%</span>
+            </div>
+            <div class="candidate-row dimmed">
+              <span class="candidate-number">02</span>
+              <div><strong>Barrier Reset</strong><small>Price ✓ · ingredients ? · shipping ?</small></div>
+              <span class="candidate-score">54%</span>
+            </div>
+          </div>
+          <div class="buyer-right">
+            <div class="reason-head"><span>WHY PRODUCT #1 WINS</span><span class="reason-pill">PREVIEW</span></div>
+            <div class="reason-block pass"><i>✓</i><div><strong>Budget is explicit</strong><small>$29.00 + USD are machine-readable.</small></div></div>
+            <div class="reason-block pass"><i>✓</i><div><strong>Ingredient context is clear</strong><small>Fragrance-free and skin-type language is detectable.</small></div></div>
+            <div class="reason-block warn"><i>!</i><div><strong>Delivery confidence is weak</strong><small>Shipping estimate is not exposed in a structured way.</small></div></div>
+            <button class="button button-soft" type="button" disabled>AI Buyer Test — next milestone</button>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="cta shell">
-      <div>
-        <span class="section-label">AI COMMERCE STARTS HERE</span>
-        <h2>Humans can buy from your site.<br>Can AI?</h2>
+    <section class="capabilities-section section-pad">
+      <div class="page-shell">
+        <div class="section-index reveal">04 / WHAT SELL2AI SEES</div>
+        <div class="capability-grid">
+          <article class="capability-card reveal">
+            <span class="cap-number">01</span>
+            <div class="cap-icon"><span></span><span></span><span></span></div>
+            <h3>Product intelligence</h3>
+            <p>Product, Offer, price, currency and availability signals—translated into merchant-readable language.</p>
+          </article>
+          <article class="capability-card reveal">
+            <span class="cap-number">02</span>
+            <div class="cap-icon lines"><span></span><span></span><span></span></div>
+            <h3>Agent discoverability</h3>
+            <p>Metadata, structured data and catalog clues that help automated buyers understand what your store sells.</p>
+          </article>
+          <article class="capability-card reveal">
+            <span class="cap-number">03</span>
+            <div class="cap-icon shield"><span></span></div>
+            <h3>Trust & policy signals</h3>
+            <p>Shipping, refunds, privacy and terms—because a buying agent needs more than a product title.</p>
+          </article>
+          <article class="capability-card reveal">
+            <span class="cap-number">04</span>
+            <div class="cap-icon arrow"><span></span></div>
+            <h3>Prioritized fixes</h3>
+            <p>No giant audit dump. High-impact gaps first, so merchants know what is worth fixing now.</p>
+          </article>
+        </div>
       </div>
-      <a class="button button-light" href="#scanner">Find out free <span>→</span></a>
+    </section>
+
+    <section class="integration-section section-pad">
+      <div class="page-shell integration-shell reveal">
+        <div class="integration-copy">
+          <div class="section-index">05 / BUILT TO CONNECT</div>
+          <h2>One merchant layer.<br>Many storefronts.</h2>
+          <p>Start with the open web. Then connect platform-specific feeds and commerce protocols as SELL2AI evolves.</p>
+          <div class="integration-tags">
+            <span>Custom storefronts</span>
+            <span>WooCommerce</span>
+            <span>Shopify</span>
+            <span>Product feeds</span>
+            <span>Agent protocols</span>
+          </div>
+        </div>
+
+        <div class="integration-map" aria-hidden="true">
+          <div class="map-node center-node">
+            <svg viewBox="0 0 42 42">
+              <path d="M29.7 7.7c-3.4-2.8-9.6-2.9-13.2-.6-4.1 2.6-4.5 7.9-.2 10.2 2.5 1.3 6.1 1.4 8.8 2 4.3 1 6.7 3 6.3 6.8-.4 4.1-4.1 7.3-9.2 7.6-4.8.3-8.9-1.4-11.2-4.8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="map-node node-a">WEB</div>
+          <div class="map-node node-b">WC</div>
+          <div class="map-node node-c">FEED</div>
+          <div class="map-node node-d">API</div>
+          <svg class="map-lines" viewBox="0 0 600 390" preserveAspectRatio="none">
+            <path d="M300 195 C230 130,170 100,94 88" />
+            <path d="M300 195 C385 135,420 105,506 90" />
+            <path d="M300 195 C225 245,168 275,98 305" />
+            <path d="M300 195 C380 250,430 275,510 305" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing-section section-pad" id="pricing">
+      <div class="page-shell">
+        <div class="section-head pricing-head reveal">
+          <div>
+            <div class="section-index">06 / PRICING</div>
+            <h2>Start with the signal.<br>Pay for the <em>automation.</em></h2>
+          </div>
+          <p>The diagnostic stays useful. Paid plans are designed around monitoring, automated fixes, integrations and measurable commerce outcomes.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="price-card reveal">
+            <div class="price-head"><span>Free</span><em>Live now</em></div>
+            <div class="price">$0</div>
+            <p>For merchants who want a clear baseline.</p>
+            <ul>
+              <li>Live readiness scan</li>
+              <li>Prioritized signal report</li>
+              <li>Copyable summary</li>
+            </ul>
+            <a class="button button-outline full" href="#scanner">Run free scan</a>
+          </article>
+
+          <article class="price-card featured reveal">
+            <div class="featured-label">MOST USEFUL FIRST UPGRADE</div>
+            <div class="price-head"><span>Starter</span><em>Planned</em></div>
+            <div class="price">$19<small>/mo</small></div>
+            <p>For one store that wants continuous visibility.</p>
+            <ul>
+              <li>Scheduled rescans</li>
+              <li>Change alerts</li>
+              <li>Guided fixes</li>
+              <li>Scan history</li>
+            </ul>
+            <button class="button button-dark full" type="button" disabled>Coming next</button>
+          </article>
+
+          <article class="price-card reveal">
+            <div class="price-head"><span>Growth</span><em>Roadmap</em></div>
+            <div class="price">$49<small>/mo</small></div>
+            <p>For stores using AI commerce as a channel.</p>
+            <ul>
+              <li>AI Buyer Tests</li>
+              <li>Feed generation</li>
+              <li>Automated fixes</li>
+              <li>Agent analytics</li>
+            </ul>
+            <button class="button button-outline full" type="button" disabled>Roadmap</button>
+          </article>
+
+          <article class="price-card reveal">
+            <div class="price-head"><span>Agency</span><em>Roadmap</em></div>
+            <div class="price">$249<small>/mo</small></div>
+            <p>For teams managing many merchant sites.</p>
+            <ul>
+              <li>Multi-store workspaces</li>
+              <li>White-label reports</li>
+              <li>Client permissions</li>
+              <li>Priority monitoring</li>
+            </ul>
+            <button class="button button-outline full" type="button" disabled>Roadmap</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section section-pad" id="faq">
+      <div class="page-shell faq-grid">
+        <div class="faq-title reveal">
+          <div class="section-index">07 / FAQ</div>
+          <h2>Clear answers.<br>No AI fog.</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item reveal" open>
+            <summary>Is the SELL2AI score an official score from an AI company?<span>+</span></summary>
+            <p>No. It is SELL2AI's own heuristic readiness score based on public commerce signals we can detect. We do not present it as an official score from OpenAI, Google, Anthropic, Stripe or any commerce protocol.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>Does the scanner access private data?<span>+</span></summary>
+            <p>No. The current scanner requests public HTTP/S pages only and blocks private/local network targets.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>Will fixing the report guarantee AI recommendations?<span>+</span></summary>
+            <p>No. Better machine-readable commerce data can remove preventable ambiguity, but no tool can guarantee placement or recommendation by a third-party AI system.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>What will paid plans actually automate?<span>+</span></summary>
+            <p>The roadmap includes continuous monitoring, generated fixes, product feeds, buyer tests, integrations and attribution—not a paywall around the basic diagnostic.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta section-pad">
+      <div class="page-shell final-cta-card reveal">
+        <div class="cta-orbit orbit-a"></div>
+        <div class="cta-orbit orbit-b"></div>
+        <div class="cta-content">
+          <span class="section-index">YOUR NEXT CUSTOMER MAY BE AN AGENT</span>
+          <h2>See what your storefront says<br><em>when nobody is looking at the pixels.</em></h2>
+          <a class="button button-light" href="#scanner">Scan your store free <span>↗</span></a>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer class="site-footer shell">
-    <div class="brand"><span class="brand-mark">S2</span><span>SELL2AI</span></div>
-    <p>Agent commerce readiness for modern merchants.</p>
-    <span>© 2026 SELL2AI</span>
+  <footer class="site-footer">
+    <div class="page-shell footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#top">
+          <svg class="brand-symbol" viewBox="0 0 42 42" aria-hidden="true">
+            <path d="M29.7 7.7c-3.4-2.8-9.6-2.9-13.2-.6-4.1 2.6-4.5 7.9-.2 10.2 2.5 1.3 6.1 1.4 8.8 2 4.3 1 6.7 3 6.3 6.8-.4 4.1-4.1 7.3-9.2 7.6-4.8.3-8.9-1.4-11.2-4.8" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
+            <circle cx="32.8" cy="8.3" r="2.35" fill="currentColor"/>
+          </svg>
+          <span class="brand-word">SELL2AI</span>
+        </a>
+        <p>Agent commerce readiness for the open web.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#product">Product</a>
+        <a href="#scanner">Free scanner</a>
+        <a href="#buyer-test">AI Buyer Test</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div class="footer-meta">
+        <span>© 2026 SELL2AI</span>
+        <span>Public beta</span>
+      </div>
+    </div>
   </footer>
 
   <script src="app.js"></script>
