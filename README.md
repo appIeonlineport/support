@@ -117,3 +117,6 @@ The free scanner should be genuinely useful on its own. Paid plans should moneti
 ## Deployment
 
 SELL2AI is connected to Vercel Git deployments from the `main` branch.
+
+
+<!-- SELL2AI benchmark trigger: 2026-09-09 -->
