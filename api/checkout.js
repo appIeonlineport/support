@@ -1,30 +1,40 @@
-const PRICE_ENV={starter:"STRIPE_PRICE_STARTER",growth:"STRIPE_PRICE_GROWTH",agency:"STRIPE_PRICE_AGENCY"};
+const TEST_LINKS = {
+  starter: "https://buy.stripe.com/test_8x29AM9Odh1heXN4rT8so00",
+  growth: "https://buy.stripe.com/test_6oU9AM2lLbGX2b1cYp8so01",
+  agency: "https://buy.stripe.com/test_4gM28k7G5h1h7vl2jL8so02"
+};
 
-export default async function handler(req,res){
-  res.setHeader("Cache-Control","no-store");
-  res.setHeader("Content-Type","application/json; charset=utf-8");
-  if(req.method!=="POST"){res.status(405).json({error:"Method not allowed."});return;}
-  const secret=process.env.STRIPE_SECRET_KEY;
-  if(!secret){res.status(503).json({error:"Billing is not activated yet."});return;}
-  const plan=String(req.body?.plan||"starter").toLowerCase();
-  if(!PRICE_ENV[plan]){res.status(400).json({error:"Unknown plan."});return;}
-  const price=process.env[PRICE_ENV[plan]];
-  if(!price){res.status(503).json({error:"This plan is not activated yet."});return;}
-  const origin=(req.headers["x-forwarded-proto"]||"https")+"://"+req.headers.host;
-  const params=new URLSearchParams();
-  params.set("mode","subscription");
-  params.set("line_items[0][price]",price);
-  params.set("line_items[0][quantity]","1");
-  params.set("success_url",origin+"/dashboard.html?billing=success");
-  params.set("cancel_url",origin+"/dashboard.html?billing=cancelled");
-  params.set("allow_promotion_codes","true");
-  const email=req.body?.email;
-  if(email)params.set("customer_email",String(email));
-  const response=await fetch("https://api.stripe.com/v1/checkout/sessions",{
-    method:"POST",headers:{Authorization:"Bearer "+secret,"Content-Type":"application/x-www-form-urlencoded"},
-    body:params
+const ENV_LINKS = {
+  starter: "STRIPE_PAYMENT_LINK_STARTER",
+  growth: "STRIPE_PAYMENT_LINK_GROWTH",
+  agency: "STRIPE_PAYMENT_LINK_AGENCY"
+};
+
+export default async function handler(req, res) {
+  res.setHeader("Cache-Control", "no-store");
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+
+  if (req.method !== "POST") {
+    res.status(405).json({ ok: false, error: "Method not allowed." });
+    return;
+  }
+
+  const plan = String(req.body?.plan || "").toLowerCase();
+  if (!TEST_LINKS[plan]) {
+    res.status(400).json({ ok: false, error: "Unknown plan." });
+    return;
+  }
+
+  const liveLink = process.env[ENV_LINKS[plan]];
+  const url = liveLink || TEST_LINKS[plan];
+
+  res.status(200).json({
+    ok: true,
+    plan,
+    url,
+    billingMode: liveLink ? "live" : "test",
+    note: liveLink
+      ? "Live Stripe Payment Link."
+      : "Stripe test-mode Payment Link. No real charge will be made."
   });
-  const data=await response.json();
-  if(!response.ok){res.status(502).json({error:data?.error?.message||"Stripe checkout failed."});return;}
-  res.status(200).json({ok:true,url:data.url,id:data.id});
 }
