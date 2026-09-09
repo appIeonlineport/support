@@ -1,4 +1,5 @@
 name: SELL2AI Beta Store Benchmark
+# one-time public-store validation harness
 
 on:
   push:
