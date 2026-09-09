@@ -1,0 +1,91 @@
+name: SELL2AI Beta Store Benchmark
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/beta-benchmark.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Wait for latest Vercel deployment
+        run: sleep 20
+
+      - name: Scan 20 public ecommerce storefronts
+        shell: bash
+        run: |
+          set -u
+          sites=(
+            "https://allbirds.com"
+            "https://www.gymshark.com"
+            "https://www.glossier.com"
+            "https://colourpop.com"
+            "https://www.snitch.co.in"
+            "https://www.bombayshavingcompany.com"
+            "https://www.sugarcosmetics.com"
+            "https://plumgoodness.com"
+            "https://www.dotandkey.com"
+            "https://mamaearth.in"
+            "https://beminimalist.co"
+            "https://www.bewakoof.com"
+            "https://www.thesouledstore.com"
+            "https://bluetokaicoffee.com"
+            "https://www.boat-lifestyle.com"
+            "https://www.lenskart.com"
+            "https://www.tentree.com"
+            "https://www.rarebeauty.com"
+            "https://kyliecosmetics.com"
+            "https://deciem.com"
+          )
+
+          printf "site\tresult\tscore\tplatform\tproducts\n" | tee benchmark.tsv
+          success=0
+          for site in "${sites[@]}"; do
+            encoded="$(python3 -c 'import sys,urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$site")"
+            body="$(curl -sSL --max-time 45 "https://sell2ai.vercel.app/api/scan?url=$encoded" || true)"
+            if grep -Fq '"mode":"live"' <<<"$body"; then
+              row="$(python3 - "$site" "$body" <<'PY'
+import json,sys
+site=sys.argv[1]
+try:
+    d=json.loads(sys.argv[2])
+    print(f"{site}\tPASS\t{d.get('score','')}\t{d.get('platform','')}\t{(d.get('detected') or {}).get('products','')}")
+except Exception:
+    print(f"{site}\tPARSE_ERROR\t\t\t")
+PY
+)"
+              echo "$row" | tee -a benchmark.tsv
+              success=$((success+1))
+            else
+              msg="$(python3 - "$body" <<'PY'
+import json,sys
+try:
+    d=json.loads(sys.argv[1]); print(str(d.get("error","scan failed")).replace("\t"," "))
+except Exception:
+    print("scan failed")
+PY
+)"
+              printf "%s\tFAIL: %s\t\t\t\n" "$site" "$msg" | tee -a benchmark.tsv
+            fi
+            sleep 1
+          done
+
+          echo "Successful live scans: $success / ${#sites[@]}"
+          cat benchmark.tsv >> "$GITHUB_STEP_SUMMARY"
+          if [ "$success" -lt 8 ]; then
+            echo "Benchmark warning: fewer than 8 storefronts completed live scans."
+            exit 1
+          fi
+
+      - name: Upload benchmark result
+        uses: actions/upload-artifact@v4
+        with:
+          name: sell2ai-beta-benchmark
+          path: benchmark.tsv
