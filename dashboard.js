@@ -70,8 +70,8 @@ async function init() {
   wireEvents();
 
   const params = new URLSearchParams(location.search);
-  if (params.get("billing") === "success") $("billingNote").textContent = "Payment completed. Subscription sync will activate after billing webhook configuration.";
-  if (params.get("billing") === "cancelled") $("billingNote").textContent = "Checkout cancelled. No charge was made.";
+  if (params.get("billing") === "success") { const plan=params.get("plan")||"selected"; $("billingNote").textContent = "Stripe test checkout completed for " + plan + ". No real charge was made."; switchTab("billing"); }
+  if (params.get("billing") === "cancelled") { $("billingNote").textContent = "Checkout cancelled. No charge was made."; switchTab("billing"); }\n  if (location.hash) { const tab=location.hash.slice(1); if (["overview","buyer","fixes","billing","feedback"].includes(tab)) switchTab(tab); }
 }
 
 async function openWorkspace() {
@@ -324,7 +324,7 @@ async function checkout(plan) {
     const body = await jsonFetch("/api/checkout", {
       method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({plan:plan,email:email})
     });
-    if (body.url) location.href = body.url;
+    if (body.url) { $("billingNote").textContent = body.note || "Opening secure checkout…"; setTimeout(function(){ location.href = body.url; }, 250); }
   } catch (error) {
     $("billingNote").textContent = error.message + " Connect/configure Stripe to activate live subscriptions.";
   }
