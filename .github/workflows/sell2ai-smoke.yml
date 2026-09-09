@@ -11,10 +11,10 @@ permissions:
 jobs:
   smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - name: Wait for Vercel alias
-        run: sleep 15
+        run: sleep 18
 
       - name: Verify production homepage
         shell: bash
@@ -24,29 +24,68 @@ jobs:
           ok=0
           for i in {1..12}; do
             if body="$(curl -fsSL --max-time 20 "$URL" 2>/dev/null)" && grep -Fq "Your store is open to people." <<<"$body"; then
-              echo "SELL2AI homepage is live."
+              echo "Homepage live."
               ok=1
               break
             fi
-            echo "Homepage not ready yet (attempt $i/12)."
             sleep 5
           done
           test "$ok" -eq 1
 
-      - name: Verify live scanner API
+      - name: Verify merchant dashboard
+        shell: bash
+        run: |
+          set -euo pipefail
+          body="$(curl -fsSL --max-time 20 https://sell2ai.vercel.app/dashboard.html)"
+          grep -Fq "Merchant Console" <<<"$body"
+          grep -Fq "AI Buyer Test" <<<"$body"
+          grep -Fq "Fix Pack" <<<"$body"
+
+      - name: Verify deep scanner v0.2
         shell: bash
         run: |
           set -euo pipefail
           URL="https://sell2ai.vercel.app/api/scan?url=https%3A%2F%2Fexample.com"
-          ok=0
-          for i in {1..10}; do
-            if body="$(curl -fsSL --max-time 25 "$URL" 2>/dev/null)" && grep -Fq '"mode":"live"' <<<"$body" && grep -Fq '"domain":"example.com"' <<<"$body"; then
-              echo "SELL2AI scanner returned a real live scan."
-              echo "$body"
-              ok=1
-              break
-            fi
-            echo "Scanner not ready yet (attempt $i/10)."
-            sleep 5
-          done
-          test "$ok" -eq 1
+          body="$(curl -fsSL --max-time 40 "$URL")"
+          grep -Fq '"mode":"live"' <<<"$body"
+          grep -Fq '"version":"0.2"' <<<"$body"
+          grep -Fq '"domain":"example.com"' <<<"$body"
+          grep -Fq '"pages":' <<<"$body"
+          echo "$body"
+
+      - name: Verify AI Buyer Test API
+        shell: bash
+        run: |
+          set -euo pipefail
+          body="$(curl -fsSL --max-time 45 -X POST https://sell2ai.vercel.app/api/buyer-test             -H 'content-type: application/json'             --data '{"url":"https://example.com","query":"Find a product under $35"}')"
+          grep -Fq '"ok":true' <<<"$body"
+          grep -Fq '"mode":"heuristic_buyer_test"' <<<"$body"
+
+      - name: Verify Fix Pack API
+        shell: bash
+        run: |
+          set -euo pipefail
+          body="$(curl -fsSL --max-time 45 -X POST https://sell2ai.vercel.app/api/fixes             -H 'content-type: application/json'             --data '{"url":"https://example.com"}')"
+          grep -Fq '"ok":true' <<<"$body"
+          grep -Fq '"product-schema.jsonld"' <<<"$body"
+          grep -Fq '"sell2ai-fix-checklist.md"' <<<"$body"
+
+      - name: Verify private network blocking
+        shell: bash
+        run: |
+          set -euo pipefail
+          code="$(curl -sS -o /tmp/private.json -w '%{http_code}' --max-time 20             'https://sell2ai.vercel.app/api/scan?url=http%3A%2F%2F127.0.0.1')"
+          test "$code" = "422"
+          grep -Eiq 'Private network targets are blocked' /tmp/private.json
+
+      - name: Verify billing is safely gated without secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          code="$(curl -sS -o /tmp/billing.json -w '%{http_code}' --max-time 20             -X POST https://sell2ai.vercel.app/api/checkout             -H 'content-type: application/json'             --data '{"plan":"starter"}')"
+          if [ "$code" = "200" ]; then
+            grep -Fq '"url":' /tmp/billing.json
+          else
+            test "$code" = "503"
+            grep -Eiq 'Billing is not activated|not activated yet' /tmp/billing.json
+          fi
