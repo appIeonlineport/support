@@ -69,6 +69,9 @@ async function init() {
 
   wireEvents();
 
+  const requestedTab = location.hash ? location.hash.slice(1) : "";
+  if (["overview","buyer","fixes","billing","feedback"].includes(requestedTab)) switchTab(requestedTab);
+
   const params = new URLSearchParams(location.search);
   if (params.get("billing") === "success") { const plan=params.get("plan")||"selected"; $("billingNote").textContent = "Stripe test checkout completed for " + plan + ". No real charge was made."; switchTab("billing"); }
   if (params.get("billing") === "cancelled") { $("billingNote").textContent = "Checkout cancelled. No charge was made."; switchTab("billing"); }\n  if (location.hash) { const tab=location.hash.slice(1); if (["overview","buyer","fixes","billing","feedback"].includes(tab)) switchTab(tab); }
@@ -362,6 +365,7 @@ async function submitFeedback() {
 }
 
 function switchTab(name) {
+  if (history.replaceState) history.replaceState(null, "", location.pathname + location.search + "#" + name);
   document.querySelectorAll(".tabs button").forEach(function(button){ button.classList.toggle("active", button.dataset.tab === name); });
   document.querySelectorAll(".tab-panel").forEach(function(panel){ panel.classList.toggle("active", panel.id === "tab-" + name); });
 }
